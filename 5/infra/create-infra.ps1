@@ -1,6 +1,6 @@
 param
 (
-    $namePrefix = "cadulldemo5",
+    $namePrefix = "mkiacdemo5",
     $environmentLabel = "n/a",
     $location = "westeurope",
     $resourceGroupName = "$namePrefix-rg",
