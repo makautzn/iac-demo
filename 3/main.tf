@@ -6,19 +6,19 @@ resource "azurerm_resource_group" "group" {
   }
 }
 
-resource "azurerm_app_service_plan" "plan" {
+resource "azurerm_service_plan" "plan" {
   name                = local.planName
   location            = azurerm_resource_group.group.location
   resource_group_name = azurerm_resource_group.group.name
-  sku {
-    tier = "Standard"
-    size = "S1"
-  }
+  os_type             = "Windows"
+  sku_name            = "S1"
 }
 
-resource "azurerm_app_service" "app" {
+resource "azurerm_windows_web_app" "app" {
   name                = local.webAppName
-  location            = azurerm_resource_group.group.location
   resource_group_name = azurerm_resource_group.group.name
-  app_service_plan_id = azurerm_app_service_plan.plan.id
+  location            = azurerm_resource_group.group.location
+  service_plan_id     = azurerm_service_plan.plan.id
+
+  site_config {}
 }

@@ -1,6 +1,6 @@
 param
 (
-    $namePrefix = "mkiacdemo3",
+    $namePrefix = "mk-iacdemo3",
     $location = "westeurope",
     $resourceGroupName = "$namePrefix-rg",
     $planName = "$namePrefix-plan",

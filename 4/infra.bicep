@@ -6,9 +6,12 @@ param sqlServerName string
 param sqlAdminPassword string 
 param sqlAdminUsername string = 'azureuser'
 
+param location string = resourceGroup().location
+
 resource plan 'Microsoft.Web/serverfarms@2020-12-01' = {
   name: planName
-  location: resourceGroup().location
+  // location: resourceGroup().location
+  location: location
   sku: {
     name: 'F1'
     capacity: 1
@@ -18,7 +21,7 @@ resource plan 'Microsoft.Web/serverfarms@2020-12-01' = {
 
 resource webApp 'Microsoft.Web/sites@2020-12-01' = {
   name: webAppName
-  location: resourceGroup().location
+  location: location
   tags: {
     'hidden-related:${resourceGroup().id}/providers/Microsoft.Web/serverfarms/${planName}': 'Resource'
     displayName: webAppName
@@ -45,12 +48,12 @@ resource webApp 'Microsoft.Web/sites@2020-12-01' = {
 
 resource appIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
   name: 'app-identity'
-  location: resourceGroup().location
+  location: location
 }
 
 resource sqlServer 'Microsoft.Sql/servers@2021-05-01-preview' = {
   name: sqlServerName
-  location: resourceGroup().location
+  location: location
   properties: {
     administratorLogin: sqlAdminUsername
     administratorLoginPassword: sqlAdminPassword
@@ -61,7 +64,7 @@ var connectionString = 'Server=tcp:${sqlServer.name}${environment().suffixes.sql
 
 resource keyVault 'Microsoft.KeyVault/vaults@2019-09-01' = {
   name: keyVaultName
-  location: resourceGroup().location
+  location: location
   properties: {
     tenantId: subscription().tenantId
     accessPolicies: [
