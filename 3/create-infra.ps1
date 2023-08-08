@@ -12,7 +12,7 @@ Push-Location
 Set-Location $terraformPath
 
 terraform init
-# terraform plan -var namePrefix=$namePrefix
-terraform apply -auto-approve -var namePrefix=$namePrefix
+terraform plan -var namePrefix=$namePrefix
+# terraform apply -auto-approve -var namePrefix=$namePrefix
 
 Pop-Location

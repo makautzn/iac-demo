@@ -10,7 +10,6 @@ param location string = resourceGroup().location
 
 resource plan 'Microsoft.Web/serverfarms@2020-12-01' = {
   name: planName
-  // location: resourceGroup().location
   location: location
   sku: {
     name: 'F1'
